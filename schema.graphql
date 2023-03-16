@@ -1,0 +1,51 @@
+
+
+type Mutation{
+    addApartment(
+        login: Credentials!
+        input: ApartmentInfo!
+    ): String
+    firstRegister(
+        login: Credentials!
+        input: CompanyInfo
+    ): String
+}
+
+type Query{
+    ListAll(
+        input: String
+    ): [String]!
+}
+
+input Credentials{
+    email: String!
+    password: String!
+}
+
+
+input CompanyInfo{
+    name: String
+    companyName: String
+    address: String
+    city: String
+    zip: String
+    country_id: Int
+    bankAccount: String
+} 
+
+input ApartmentInfo{
+    address: String!
+    city: String!
+    zip: String
+    intercomCode: String
+    apartment_id: String
+    ifOtherBankAccount: String  
+    notes:String!
+    tags:[String!]
+} 
+
+
+schema{
+    query: Query,
+    mutation: Mutation
+}
