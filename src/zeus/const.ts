@@ -13,7 +13,7 @@ export const AllTypesProps: Record<string,any> = {
 	},
 	Query:{
 		ListAll:{
-
+			login:"Credentials"
 		}
 	},
 	Credentials:{
@@ -23,8 +23,11 @@ export const AllTypesProps: Record<string,any> = {
 
 	},
 	ApartmentInfo:{
-
-	}
+		rental_type:"Rodzaj_najmu",
+		rodzaj_ogrzewania:"Rodzaj_ogrzewania"
+	},
+	Rodzaj_ogrzewania: "enum" as const,
+	Rodzaj_najmu: "enum" as const
 }
 
 export const ReturnTypes: Record<string,any> = {

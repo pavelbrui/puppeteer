@@ -839,7 +839,7 @@ firstRegister?: [{	login: ValueTypes["Credentials"] | Variable<any, string>,	inp
 		__typename?: boolean | `@${string}`
 }>;
 	["Query"]: AliasType<{
-ListAll?: [{	input?: string | undefined | null | Variable<any, string>},boolean | `@${string}`],
+ListAll?: [{	login: ValueTypes["Credentials"] | Variable<any, string>},boolean | `@${string}`],
 		__typename?: boolean | `@${string}`
 }>;
 	["Credentials"]: {
@@ -861,10 +861,15 @@ ListAll?: [{	input?: string | undefined | null | Variable<any, string>},boolean 
 	zip?: string | undefined | null | Variable<any, string>,
 	intercomCode?: string | undefined | null | Variable<any, string>,
 	apartment_id?: string | undefined | null | Variable<any, string>,
+	rental_type?: ValueTypes["Rodzaj_najmu"] | undefined | null | Variable<any, string>,
 	ifOtherBankAccount?: string | undefined | null | Variable<any, string>,
-	notes: string | Variable<any, string>,
-	tags?: Array<string> | undefined | null | Variable<any, string>
-}
+	notes?: Array<string> | undefined | null | Variable<any, string>,
+	tags?: Array<string> | undefined | null | Variable<any, string>,
+	rodzaj_ogrzewania?: ValueTypes["Rodzaj_ogrzewania"] | undefined | null | Variable<any, string>,
+	internetProvider?: string | undefined | null | Variable<any, string>
+};
+	["Rodzaj_ogrzewania"]:Rodzaj_ogrzewania;
+	["Rodzaj_najmu"]:Rodzaj_najmu
   }
 
 export type ResolverInputTypes = {
@@ -874,7 +879,7 @@ firstRegister?: [{	login: ResolverInputTypes["Credentials"],	input?: ResolverInp
 		__typename?: boolean | `@${string}`
 }>;
 	["Query"]: AliasType<{
-ListAll?: [{	input?: string | undefined | null},boolean | `@${string}`],
+ListAll?: [{	login: ResolverInputTypes["Credentials"]},boolean | `@${string}`],
 		__typename?: boolean | `@${string}`
 }>;
 	["Credentials"]: {
@@ -896,10 +901,15 @@ ListAll?: [{	input?: string | undefined | null},boolean | `@${string}`],
 	zip?: string | undefined | null,
 	intercomCode?: string | undefined | null,
 	apartment_id?: string | undefined | null,
+	rental_type?: ResolverInputTypes["Rodzaj_najmu"] | undefined | null,
 	ifOtherBankAccount?: string | undefined | null,
-	notes: string,
-	tags?: Array<string> | undefined | null
-}
+	notes?: Array<string> | undefined | null,
+	tags?: Array<string> | undefined | null,
+	rodzaj_ogrzewania?: ResolverInputTypes["Rodzaj_ogrzewania"] | undefined | null,
+	internetProvider?: string | undefined | null
+};
+	["Rodzaj_ogrzewania"]:Rodzaj_ogrzewania;
+	["Rodzaj_najmu"]:Rodzaj_najmu
   }
 
 export type ModelTypes = {
@@ -908,7 +918,7 @@ export type ModelTypes = {
 	firstRegister?: string | undefined
 };
 	["Query"]: {
-		ListAll: Array<string | undefined>
+		ListAll?: Array<string | undefined> | undefined
 };
 	["Credentials"]: {
 	email: string,
@@ -929,10 +939,15 @@ export type ModelTypes = {
 	zip?: string | undefined,
 	intercomCode?: string | undefined,
 	apartment_id?: string | undefined,
+	rental_type?: ModelTypes["Rodzaj_najmu"] | undefined,
 	ifOtherBankAccount?: string | undefined,
-	notes: string,
-	tags?: Array<string> | undefined
-}
+	notes?: Array<string> | undefined,
+	tags?: Array<string> | undefined,
+	rodzaj_ogrzewania?: ModelTypes["Rodzaj_ogrzewania"] | undefined,
+	internetProvider?: string | undefined
+};
+	["Rodzaj_ogrzewania"]:Rodzaj_ogrzewania;
+	["Rodzaj_najmu"]:Rodzaj_najmu
     }
 
 export type GraphQLTypes = {
@@ -943,7 +958,7 @@ export type GraphQLTypes = {
 };
 	["Query"]: {
 	__typename: "Query",
-	ListAll: Array<string | undefined>
+	ListAll?: Array<string | undefined> | undefined
 };
 	["Credentials"]: {
 		email: string,
@@ -964,15 +979,31 @@ export type GraphQLTypes = {
 	zip?: string | undefined,
 	intercomCode?: string | undefined,
 	apartment_id?: string | undefined,
+	rental_type?: GraphQLTypes["Rodzaj_najmu"] | undefined,
 	ifOtherBankAccount?: string | undefined,
-	notes: string,
-	tags?: Array<string> | undefined
-}
+	notes?: Array<string> | undefined,
+	tags?: Array<string> | undefined,
+	rodzaj_ogrzewania?: GraphQLTypes["Rodzaj_ogrzewania"] | undefined,
+	internetProvider?: string | undefined
+};
+	["Rodzaj_ogrzewania"]: Rodzaj_ogrzewania;
+	["Rodzaj_najmu"]: Rodzaj_najmu
     }
-
+export const enum Rodzaj_ogrzewania {
+	Gaz = "Gaz",
+	Miejskie = "Miejskie",
+	Prand = "Prand",
+	Wlasna_kotlowina = "Wlasna_kotlowina"
+}
+export const enum Rodzaj_najmu {
+	Na_pokoje = "Na_pokoje",
+	Wynajem_calosci = "Wynajem_calosci"
+}
 
 type ZEUS_VARIABLES = {
 	["Credentials"]: ValueTypes["Credentials"];
 	["CompanyInfo"]: ValueTypes["CompanyInfo"];
 	["ApartmentInfo"]: ValueTypes["ApartmentInfo"];
+	["Rodzaj_ogrzewania"]: ValueTypes["Rodzaj_ogrzewania"];
+	["Rodzaj_najmu"]: ValueTypes["Rodzaj_najmu"];
 }

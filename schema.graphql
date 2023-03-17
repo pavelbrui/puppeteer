@@ -1,51 +1,64 @@
 
 
 type Mutation{
-    addApartment(
-        login: Credentials!
-        input: ApartmentInfo!
-    ): String
-    firstRegister(
-        login: Credentials!
-        input: CompanyInfo
-    ): String
+	addApartment(
+		login: Credentials!
+		input: ApartmentInfo!
+	): String
+	firstRegister(
+		login: Credentials!
+		input: CompanyInfo
+	): String
 }
 
 type Query{
-    ListAll(
-        input: String
-    ): [String]!
+	ListAll(
+        login: Credentials!
+	): [String]
 }
 
 input Credentials{
-    email: String!
-    password: String!
+	email: String!
+	password: String!
 }
 
-
 input CompanyInfo{
-    name: String
-    companyName: String
-    address: String
-    city: String
-    zip: String
-    country_id: Int
-    bankAccount: String
-} 
-
+	name: String
+	companyName: String
+	address: String
+	city: String
+	zip: String
+	country_id: Int
+	bankAccount: String
+}
 input ApartmentInfo{
-    address: String!
-    city: String!
-    zip: String
-    intercomCode: String
-    apartment_id: String
-    ifOtherBankAccount: String  
-    notes:String!
-    tags:[String!]
-} 
+	address: String!
+	city: String!
+	zip: String
 
+	intercomCode: String
+	apartment_id: String
+	rental_type: Rodzaj_najmu
+	ifOtherBankAccount: String
+	notes: [String!]
+	tags: [String!]
+    rodzaj_ogrzewania: Rodzaj_ogrzewania
+    internetProvider: String
 
+}
+
+enum Rodzaj_ogrzewania{
+	Gaz
+	Miejskie
+	Prand
+	Wlasna_kotlowina
+}
+
+enum Rodzaj_najmu{
+	Na_pokoje
+	Wynajem_calosci
+}
 schema{
-    query: Query,
-    mutation: Mutation
+	query: Query,
+	mutation: Mutation
 }
