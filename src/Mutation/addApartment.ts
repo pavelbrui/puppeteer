@@ -114,7 +114,7 @@ export const handler = async (input: FieldResolveInput) =>
       'td[class="col-xs-8"]>a[class="editable editable-click editable-empty"]',
     );
     await internet?.click({ delay: 600 });
-    //await browser.close();
+    await browser.close();
 
     console.log('super');
 

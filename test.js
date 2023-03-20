@@ -1,30 +1,37 @@
-console.log('hello world');
-
 import puppeteer from 'puppeteer';
 
 (async () => {
-  const browser = await puppeteer.launch({ headless: false, slowMo: 250 });
+  const browser = await puppeteer.launch({ headless: false, slowMo: 50 });
   const page = await browser.newPage();
-
-  await page.goto('https://developer.chrome.com/');
 
   // Set screen size
   await page.setViewport({ width: 1080, height: 1024 });
+  await page.goto('https://systemobsluginajmu.pl/login');
 
   // Type into search box
-  await page.type('.search-box__input', 'automate beyond recorder');
+  await page.type('.form-control.m-input.placeholder-no-fix', 'artur@aexol.com');
+  await page.type('.form-control.placeholder-no-fix.m-input.m-login__form-input--last', 'XzNuegFg3jLGuaX');
 
-  // Wait and click on first result
-  const searchResultSelector = '.search-box__link';
-  await page.waitForSelector(searchResultSelector);
-  await page.click(searchResultSelector);
+  const login = await page.waitForSelector('div >.btn.btn-focus.m-btn.m-btn--pill.m-btn--custom.m-btn--air');
+  await login?.click({ delay: 0 });
 
-  // Locate the full title with a unique string
-  const textSelector = await page.waitForSelector('text/Customize and automate');
-  const fullTitle = await textSelector.evaluate((el) => el.textContent);
+  const select = await page.waitForSelector('text/Nieruchomości');
+  await select?.click({ delay: 10 });
+  await page.goto('https://systemobsluginajmu.pl/estates/index');
 
-  // Print the full title
-  console.log('The title of this blog post is "%s".', fullTitle);
+  const response2 = await page.waitForResponse((response) => {
+    return response.url().endsWith('index');
+  });
 
-  await browser.close();
+  const indexJson2 = await response2.text();
+  console.log('indexJson2 = ', indexJson2);
+
+  const response = await page.waitForResponse((response) => {
+    return response.url().endsWith('index.json');
+  });
+
+  const indexJson = await response.text();
+  console.log(indexJson);
+
+  //await browser.close();
 })();

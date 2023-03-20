@@ -3,7 +3,7 @@ import { resolverFor } from '../zeus/index.js';
 import puppeteer from 'puppeteer';
 
 export const handler = async (input: FieldResolveInput) =>
-  resolverFor('Query', 'ListAll', async (args) => {
+  resolverFor('Query', 'getInfoById', async (args) => {
     const browser = await puppeteer.launch({ headless: false, slowMo: 15 });
     const page = await browser.newPage();
 
@@ -21,27 +21,10 @@ export const handler = async (input: FieldResolveInput) =>
     const select = await page.waitForSelector('text/Nieruchomości');
     await select?.click({ delay: 10 });
 
-    await page.goto('https://systemobsluginajmu.pl/estates/index');
+    await page.goto(`https://systemobsluginajmu.pl/estates/view-estate/${args.estate_id}`);
+    const apInfo = await page.waitForSelector('div[class="adminpanelEstatesViewEstate"]');
 
-    const response = await page.waitForResponse((response) => {
-      return response.url().endsWith('index');
-    });
+    const info = await apInfo?.evaluate((el) => el?.innerText);
 
-    const indexJson = await response.text();
-
-    const aparts = JSON.parse(indexJson).data;
-
-    const estate_det = (aparts[0].estate_details as string).split('\n');
-    console.log(estate_det);
-
-    console.log({
-      ...aparts[0],
-      estate_details: {
-        liczba_pokoi: estate_det[0].split(':')[1],
-        pietro: estate_det[1].split(':')[1],
-        powierzchnia: estate_det[2].split(':')[1],
-      },
-    });
-    await browser.close();
-    return aparts;
+    return info;
   })(input.arguments);

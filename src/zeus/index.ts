@@ -839,7 +839,8 @@ firstRegister?: [{	login: ValueTypes["Credentials"] | Variable<any, string>,	inp
 		__typename?: boolean | `@${string}`
 }>;
 	["Query"]: AliasType<{
-ListAll?: [{	login: ValueTypes["Credentials"] | Variable<any, string>},boolean | `@${string}`],
+ListAll?: [{	login: ValueTypes["Credentials"] | Variable<any, string>},ValueTypes["ApartmentBasicInfo"]],
+getInfoById?: [{	login: ValueTypes["Credentials"] | Variable<any, string>,	estate_id: string | Variable<any, string>},boolean | `@${string}`],
 		__typename?: boolean | `@${string}`
 }>;
 	["Credentials"]: {
@@ -868,6 +869,27 @@ ListAll?: [{	login: ValueTypes["Credentials"] | Variable<any, string>},boolean |
 	rodzaj_ogrzewania?: ValueTypes["Rodzaj_ogrzewania"] | undefined | null | Variable<any, string>,
 	internetProvider?: string | undefined | null | Variable<any, string>
 };
+	["ApartmentBasicInfo"]: AliasType<{
+	address?:boolean | `@${string}`,
+	estate_code?:boolean | `@${string}`,
+	estate_is_under_renovation?:boolean | `@${string}`,
+	estate_manage_type?:boolean | `@${string}`,
+	estate_id?:boolean | `@${string}`,
+	tags?:boolean | `@${string}`,
+	estate_details?:ValueTypes["Estate_details"],
+	estate_rental_type?:boolean | `@${string}`,
+	estate_access_code?:boolean | `@${string}`,
+	rooms_accommodation?:boolean | `@${string}`,
+	free_rooms_count?:boolean | `@${string}`,
+	row_class?:boolean | `@${string}`,
+		__typename?: boolean | `@${string}`
+}>;
+	["Estate_details"]: AliasType<{
+	liczba_pokoi?:boolean | `@${string}`,
+	pietro?:boolean | `@${string}`,
+	powierzchnia?:boolean | `@${string}`,
+		__typename?: boolean | `@${string}`
+}>;
 	["Rodzaj_ogrzewania"]:Rodzaj_ogrzewania;
 	["Rodzaj_najmu"]:Rodzaj_najmu
   }
@@ -879,7 +901,8 @@ firstRegister?: [{	login: ResolverInputTypes["Credentials"],	input?: ResolverInp
 		__typename?: boolean | `@${string}`
 }>;
 	["Query"]: AliasType<{
-ListAll?: [{	login: ResolverInputTypes["Credentials"]},boolean | `@${string}`],
+ListAll?: [{	login: ResolverInputTypes["Credentials"]},ResolverInputTypes["ApartmentBasicInfo"]],
+getInfoById?: [{	login: ResolverInputTypes["Credentials"],	estate_id: string},boolean | `@${string}`],
 		__typename?: boolean | `@${string}`
 }>;
 	["Credentials"]: {
@@ -908,6 +931,27 @@ ListAll?: [{	login: ResolverInputTypes["Credentials"]},boolean | `@${string}`],
 	rodzaj_ogrzewania?: ResolverInputTypes["Rodzaj_ogrzewania"] | undefined | null,
 	internetProvider?: string | undefined | null
 };
+	["ApartmentBasicInfo"]: AliasType<{
+	address?:boolean | `@${string}`,
+	estate_code?:boolean | `@${string}`,
+	estate_is_under_renovation?:boolean | `@${string}`,
+	estate_manage_type?:boolean | `@${string}`,
+	estate_id?:boolean | `@${string}`,
+	tags?:boolean | `@${string}`,
+	estate_details?:ResolverInputTypes["Estate_details"],
+	estate_rental_type?:boolean | `@${string}`,
+	estate_access_code?:boolean | `@${string}`,
+	rooms_accommodation?:boolean | `@${string}`,
+	free_rooms_count?:boolean | `@${string}`,
+	row_class?:boolean | `@${string}`,
+		__typename?: boolean | `@${string}`
+}>;
+	["Estate_details"]: AliasType<{
+	liczba_pokoi?:boolean | `@${string}`,
+	pietro?:boolean | `@${string}`,
+	powierzchnia?:boolean | `@${string}`,
+		__typename?: boolean | `@${string}`
+}>;
 	["Rodzaj_ogrzewania"]:Rodzaj_ogrzewania;
 	["Rodzaj_najmu"]:Rodzaj_najmu
   }
@@ -918,7 +962,8 @@ export type ModelTypes = {
 	firstRegister?: string | undefined
 };
 	["Query"]: {
-		ListAll?: Array<string | undefined> | undefined
+		ListAll?: Array<ModelTypes["ApartmentBasicInfo"]> | undefined,
+	getInfoById?: string | undefined
 };
 	["Credentials"]: {
 	email: string,
@@ -946,6 +991,25 @@ export type ModelTypes = {
 	rodzaj_ogrzewania?: ModelTypes["Rodzaj_ogrzewania"] | undefined,
 	internetProvider?: string | undefined
 };
+	["ApartmentBasicInfo"]: {
+		address?: string | undefined,
+	estate_code?: string | undefined,
+	estate_is_under_renovation?: number | undefined,
+	estate_manage_type?: number | undefined,
+	estate_id?: number | undefined,
+	tags?: string | undefined,
+	estate_details?: ModelTypes["Estate_details"] | undefined,
+	estate_rental_type?: number | undefined,
+	estate_access_code?: string | undefined,
+	rooms_accommodation?: string | undefined,
+	free_rooms_count?: number | undefined,
+	row_class?: string | undefined
+};
+	["Estate_details"]: {
+		liczba_pokoi?: number | undefined,
+	pietro?: number | undefined,
+	powierzchnia?: number | undefined
+};
 	["Rodzaj_ogrzewania"]:Rodzaj_ogrzewania;
 	["Rodzaj_najmu"]:Rodzaj_najmu
     }
@@ -958,7 +1022,8 @@ export type GraphQLTypes = {
 };
 	["Query"]: {
 	__typename: "Query",
-	ListAll?: Array<string | undefined> | undefined
+	ListAll?: Array<GraphQLTypes["ApartmentBasicInfo"]> | undefined,
+	getInfoById?: string | undefined
 };
 	["Credentials"]: {
 		email: string,
@@ -985,6 +1050,27 @@ export type GraphQLTypes = {
 	tags?: Array<string> | undefined,
 	rodzaj_ogrzewania?: GraphQLTypes["Rodzaj_ogrzewania"] | undefined,
 	internetProvider?: string | undefined
+};
+	["ApartmentBasicInfo"]: {
+	__typename: "ApartmentBasicInfo",
+	address?: string | undefined,
+	estate_code?: string | undefined,
+	estate_is_under_renovation?: number | undefined,
+	estate_manage_type?: number | undefined,
+	estate_id?: number | undefined,
+	tags?: string | undefined,
+	estate_details?: GraphQLTypes["Estate_details"] | undefined,
+	estate_rental_type?: number | undefined,
+	estate_access_code?: string | undefined,
+	rooms_accommodation?: string | undefined,
+	free_rooms_count?: number | undefined,
+	row_class?: string | undefined
+};
+	["Estate_details"]: {
+	__typename: "Estate_details",
+	liczba_pokoi?: number | undefined,
+	pietro?: number | undefined,
+	powierzchnia?: number | undefined
 };
 	["Rodzaj_ogrzewania"]: Rodzaj_ogrzewania;
 	["Rodzaj_najmu"]: Rodzaj_najmu

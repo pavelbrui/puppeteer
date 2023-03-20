@@ -14,7 +14,9 @@ type Mutation{
 type Query{
 	ListAll(
         login: Credentials!
-	): [String]
+	): [ApartmentBasicInfo!]
+	getInfoById(login: Credentials!, estate_id: String!):
+	String
 }
 
 input Credentials{
@@ -47,6 +49,27 @@ input ApartmentInfo{
 
 }
 
+type ApartmentBasicInfo{
+   address: String,
+  estate_code: String,
+  estate_is_under_renovation: Int,
+  estate_manage_type: Int,
+  estate_id: Int,
+  tags: String,
+  estate_details: Estate_details ,
+  estate_rental_type: Int,
+  estate_access_code: String,
+  rooms_accommodation: String,
+  free_rooms_count: Int,
+  row_class: String
+}
+
+type Estate_details{
+	liczba_pokoi: Int,
+	pietro: Int,
+	powierzchnia: Float
+	}
+
 enum Rodzaj_ogrzewania{
 	Gaz
 	Miejskie
@@ -61,4 +84,4 @@ enum Rodzaj_najmu{
 schema{
 	query: Query,
 	mutation: Mutation
-}
+},

@@ -14,6 +14,9 @@ export const AllTypesProps: Record<string,any> = {
 	Query:{
 		ListAll:{
 			login:"Credentials"
+		},
+		getInfoById:{
+			login:"Credentials"
 		}
 	},
 	Credentials:{
@@ -36,7 +39,27 @@ export const ReturnTypes: Record<string,any> = {
 		firstRegister:"String"
 	},
 	Query:{
-		ListAll:"String"
+		ListAll:"ApartmentBasicInfo",
+		getInfoById:"String"
+	},
+	ApartmentBasicInfo:{
+		address:"String",
+		estate_code:"String",
+		estate_is_under_renovation:"Int",
+		estate_manage_type:"Int",
+		estate_id:"Int",
+		tags:"String",
+		estate_details:"Estate_details",
+		estate_rental_type:"Int",
+		estate_access_code:"String",
+		rooms_accommodation:"String",
+		free_rooms_count:"Int",
+		row_class:"String"
+	},
+	Estate_details:{
+		liczba_pokoi:"Int",
+		pietro:"Int",
+		powierzchnia:"Float"
 	}
 }
 

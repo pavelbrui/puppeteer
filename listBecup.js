@@ -21,27 +21,23 @@ export const handler = async (input: FieldResolveInput) =>
     const select = await page.waitForSelector('text/Nieruchomości');
     await select?.click({ delay: 10 });
 
-    await page.goto('https://systemobsluginajmu.pl/estates/index');
+    const allApart = await page.waitForSelector('div>div>div>div>div>div>table[id="dbtable"]>tbody');
 
-    const response = await page.waitForResponse((response) => {
-      return response.url().endsWith('index');
+    // Get the contents of the file
+    const fileContents = await page.evaluate(async () => {
+      const bodyS = await page.waitForSelector('body');
+      const body = bodyS?.toString();
+
+      return JSON.parse(body || '');
     });
 
-    const indexJson = await response.text();
+    console.log(fileContents); // This will log the contents of the index.json file
 
-    const aparts = JSON.parse(indexJson).data;
+    const aparts = (await allApart?.waitForSelector('tr[class="odd"]'))?.evaluate((el) => el?.innerText);
+    const ap = aparts;
 
-    const estate_det = (aparts[0].estate_details as string).split('\n');
-    console.log(estate_det);
-
-    console.log({
-      ...aparts[0],
-      estate_details: {
-        liczba_pokoi: estate_det[0].split(':')[1],
-        pietro: estate_det[1].split(':')[1],
-        powierzchnia: estate_det[2].split(':')[1],
-      },
-    });
     await browser.close();
-    return aparts;
+    console.log(aparts);
+
+    return [aparts];
   })(input.arguments);

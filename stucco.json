@@ -1,29 +1,34 @@
 {
-    "resolvers": {
-        "Query.ListAll": {
-            "resolve": {
-                "name": "lib/Query/ListAll"
-            }
-        },
-        "Mutation.Login": {
-            "resolve": {
-                "name": "lib/Mutation/Login"
-            }
-        },
-        "Mutation.FillingForm": {
-            "resolve": {
-                "name": "lib/Mutation/FillingForm"
-            }
-        },
-        "Mutation.addApartment": {
-            "resolve": {
-                "name": "lib/Mutation/addApartment"
-            }
-        },
-        "Mutation.firstRegister": {
-            "resolve": {
-                "name": "lib/Mutation/firstRegister"
-            }
-        }
+  "resolvers": {
+    "Mutation.Login": {
+      "resolve": {
+        "name": "lib/Mutation/Login"
+      }
+    },
+    "Mutation.FillingForm": {
+      "resolve": {
+        "name": "lib/Mutation/FillingForm"
+      }
+    },
+    "Mutation.addApartment": {
+      "resolve": {
+        "name": "lib/Mutation/addApartment"
+      }
+    },
+    "Mutation.firstRegister": {
+      "resolve": {
+        "name": "lib/Mutation/firstRegister"
+      }
+    },
+    "Query.getInfoById": {
+      "resolve": {
+        "name": "lib/Query/getInfoById"
+      }
+    },
+    "Query.ListAll": {
+      "resolve": {
+        "name": "lib/Query/ListAll"
+      }
     }
+  }
 }
