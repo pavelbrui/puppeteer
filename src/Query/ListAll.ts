@@ -1,6 +1,6 @@
 import { FieldResolveInput } from 'stucco-js';
 import { resolverFor } from '../zeus/index.js';
-import puppeteer from 'puppeteer';
+import puppeteer, { ElementHandle } from 'puppeteer';
 
 export const handler = async (input: FieldResolveInput) =>
   resolverFor('Query', 'ListAll', async (args) => {
@@ -31,17 +31,21 @@ export const handler = async (input: FieldResolveInput) =>
 
     const aparts = JSON.parse(indexJson).data;
 
-    const estate_det = (aparts[0].estate_details as string).split('\n');
-    console.log(estate_det);
-
-    console.log({
-      ...aparts[0],
-      estate_details: {
-        liczba_pokoi: estate_det[0].split(':')[1],
-        pietro: estate_det[1].split(':')[1],
-        powierzchnia: estate_det[2].split(':')[1],
-      },
-    });
     await browser.close();
-    return aparts;
+
+    const ret = [];
+    for (const i in aparts) {
+      const estate_det = (aparts[i].estate_details as string).split('\n');
+      ret.push({
+        ...aparts[i],
+        estate_details: {
+          liczba_pokoi: parseInt(estate_det[0].split(':')[1]),
+          pietro: parseInt(estate_det[1].split(':')[1]),
+          powierzchnia: parseFloat(estate_det[2].split(':')[1]),
+        },
+        ...(aparts[i].rooms_accommodation && { rooms_accommodation: aparts[i].rooms_accommodation.split('[|]') }),
+      });
+    }
+
+    return ret;
   })(input.arguments);

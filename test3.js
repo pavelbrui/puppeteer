@@ -45,5 +45,13 @@ import puppeteer from 'puppeteer';
 
   await browser.close();
 
+  await page.evaluate(() => {
+    window.scrollBy(0, -window.innerHeight / 8);
+  });
+
   return ' super';
 })();
+
+const dostawcy = await page.waitForSelector('a[href="#estate_card_details"]');
+await dostawcy?.click({ delay: 10 });
+console.log('clik norm');

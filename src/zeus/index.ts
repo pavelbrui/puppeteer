@@ -840,7 +840,7 @@ firstRegister?: [{	login: ValueTypes["Credentials"] | Variable<any, string>,	inp
 }>;
 	["Query"]: AliasType<{
 ListAll?: [{	login: ValueTypes["Credentials"] | Variable<any, string>},ValueTypes["ApartmentBasicInfo"]],
-getInfoById?: [{	login: ValueTypes["Credentials"] | Variable<any, string>,	estate_id: string | Variable<any, string>},boolean | `@${string}`],
+getInfoById?: [{	login: ValueTypes["Credentials"] | Variable<any, string>,	estate_id: string | Variable<any, string>},ValueTypes["ApartmentFullInfo"]],
 		__typename?: boolean | `@${string}`
 }>;
 	["Credentials"]: {
@@ -890,6 +890,26 @@ getInfoById?: [{	login: ValueTypes["Credentials"] | Variable<any, string>,	estat
 	powierzchnia?:boolean | `@${string}`,
 		__typename?: boolean | `@${string}`
 }>;
+	["ApartmentFullInfo"]: AliasType<{
+	basicInfo?:boolean | `@${string}`,
+	apartment_card?:ValueTypes["ApartmentCard"],
+	notes?:boolean | `@${string}`,
+	rooms_and_tenants?:boolean | `@${string}`,
+	meters_and_charges?:boolean | `@${string}`,
+	notifications?:boolean | `@${string}`,
+	estate_controls?:boolean | `@${string}`,
+	billings?:boolean | `@${string}`,
+	insurance?:boolean | `@${string}`,
+	dokuments?:boolean | `@${string}`,
+	cost_documents?:boolean | `@${string}`,
+		__typename?: boolean | `@${string}`
+}>;
+	["ApartmentCard"]: AliasType<{
+	ogolne?:boolean | `@${string}`,
+	szczegoly?:boolean | `@${string}`,
+	daneDostawcow?:boolean | `@${string}`,
+		__typename?: boolean | `@${string}`
+}>;
 	["Rodzaj_ogrzewania"]:Rodzaj_ogrzewania;
 	["Rodzaj_najmu"]:Rodzaj_najmu
   }
@@ -902,7 +922,7 @@ firstRegister?: [{	login: ResolverInputTypes["Credentials"],	input?: ResolverInp
 }>;
 	["Query"]: AliasType<{
 ListAll?: [{	login: ResolverInputTypes["Credentials"]},ResolverInputTypes["ApartmentBasicInfo"]],
-getInfoById?: [{	login: ResolverInputTypes["Credentials"],	estate_id: string},boolean | `@${string}`],
+getInfoById?: [{	login: ResolverInputTypes["Credentials"],	estate_id: string},ResolverInputTypes["ApartmentFullInfo"]],
 		__typename?: boolean | `@${string}`
 }>;
 	["Credentials"]: {
@@ -952,6 +972,26 @@ getInfoById?: [{	login: ResolverInputTypes["Credentials"],	estate_id: string},bo
 	powierzchnia?:boolean | `@${string}`,
 		__typename?: boolean | `@${string}`
 }>;
+	["ApartmentFullInfo"]: AliasType<{
+	basicInfo?:boolean | `@${string}`,
+	apartment_card?:ResolverInputTypes["ApartmentCard"],
+	notes?:boolean | `@${string}`,
+	rooms_and_tenants?:boolean | `@${string}`,
+	meters_and_charges?:boolean | `@${string}`,
+	notifications?:boolean | `@${string}`,
+	estate_controls?:boolean | `@${string}`,
+	billings?:boolean | `@${string}`,
+	insurance?:boolean | `@${string}`,
+	dokuments?:boolean | `@${string}`,
+	cost_documents?:boolean | `@${string}`,
+		__typename?: boolean | `@${string}`
+}>;
+	["ApartmentCard"]: AliasType<{
+	ogolne?:boolean | `@${string}`,
+	szczegoly?:boolean | `@${string}`,
+	daneDostawcow?:boolean | `@${string}`,
+		__typename?: boolean | `@${string}`
+}>;
 	["Rodzaj_ogrzewania"]:Rodzaj_ogrzewania;
 	["Rodzaj_najmu"]:Rodzaj_najmu
   }
@@ -963,7 +1003,7 @@ export type ModelTypes = {
 };
 	["Query"]: {
 		ListAll?: Array<ModelTypes["ApartmentBasicInfo"]> | undefined,
-	getInfoById?: string | undefined
+	getInfoById?: ModelTypes["ApartmentFullInfo"] | undefined
 };
 	["Credentials"]: {
 	email: string,
@@ -1001,7 +1041,7 @@ export type ModelTypes = {
 	estate_details?: ModelTypes["Estate_details"] | undefined,
 	estate_rental_type?: number | undefined,
 	estate_access_code?: string | undefined,
-	rooms_accommodation?: string | undefined,
+	rooms_accommodation?: Array<string> | undefined,
 	free_rooms_count?: number | undefined,
 	row_class?: string | undefined
 };
@@ -1009,6 +1049,24 @@ export type ModelTypes = {
 		liczba_pokoi?: number | undefined,
 	pietro?: number | undefined,
 	powierzchnia?: number | undefined
+};
+	["ApartmentFullInfo"]: {
+		basicInfo?: string | undefined,
+	apartment_card?: ModelTypes["ApartmentCard"] | undefined,
+	notes?: string | undefined,
+	rooms_and_tenants?: string | undefined,
+	meters_and_charges?: string | undefined,
+	notifications?: string | undefined,
+	estate_controls?: string | undefined,
+	billings?: string | undefined,
+	insurance?: string | undefined,
+	dokuments?: string | undefined,
+	cost_documents?: string | undefined
+};
+	["ApartmentCard"]: {
+		ogolne?: string | undefined,
+	szczegoly?: string | undefined,
+	daneDostawcow?: string | undefined
 };
 	["Rodzaj_ogrzewania"]:Rodzaj_ogrzewania;
 	["Rodzaj_najmu"]:Rodzaj_najmu
@@ -1023,7 +1081,7 @@ export type GraphQLTypes = {
 	["Query"]: {
 	__typename: "Query",
 	ListAll?: Array<GraphQLTypes["ApartmentBasicInfo"]> | undefined,
-	getInfoById?: string | undefined
+	getInfoById?: GraphQLTypes["ApartmentFullInfo"] | undefined
 };
 	["Credentials"]: {
 		email: string,
@@ -1062,7 +1120,7 @@ export type GraphQLTypes = {
 	estate_details?: GraphQLTypes["Estate_details"] | undefined,
 	estate_rental_type?: number | undefined,
 	estate_access_code?: string | undefined,
-	rooms_accommodation?: string | undefined,
+	rooms_accommodation?: Array<string> | undefined,
 	free_rooms_count?: number | undefined,
 	row_class?: string | undefined
 };
@@ -1071,6 +1129,26 @@ export type GraphQLTypes = {
 	liczba_pokoi?: number | undefined,
 	pietro?: number | undefined,
 	powierzchnia?: number | undefined
+};
+	["ApartmentFullInfo"]: {
+	__typename: "ApartmentFullInfo",
+	basicInfo?: string | undefined,
+	apartment_card?: GraphQLTypes["ApartmentCard"] | undefined,
+	notes?: string | undefined,
+	rooms_and_tenants?: string | undefined,
+	meters_and_charges?: string | undefined,
+	notifications?: string | undefined,
+	estate_controls?: string | undefined,
+	billings?: string | undefined,
+	insurance?: string | undefined,
+	dokuments?: string | undefined,
+	cost_documents?: string | undefined
+};
+	["ApartmentCard"]: {
+	__typename: "ApartmentCard",
+	ogolne?: string | undefined,
+	szczegoly?: string | undefined,
+	daneDostawcow?: string | undefined
 };
 	["Rodzaj_ogrzewania"]: Rodzaj_ogrzewania;
 	["Rodzaj_najmu"]: Rodzaj_najmu

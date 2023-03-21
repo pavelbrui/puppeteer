@@ -40,7 +40,7 @@ export const ReturnTypes: Record<string,any> = {
 	},
 	Query:{
 		ListAll:"ApartmentBasicInfo",
-		getInfoById:"String"
+		getInfoById:"ApartmentFullInfo"
 	},
 	ApartmentBasicInfo:{
 		address:"String",
@@ -60,6 +60,24 @@ export const ReturnTypes: Record<string,any> = {
 		liczba_pokoi:"Int",
 		pietro:"Int",
 		powierzchnia:"Float"
+	},
+	ApartmentFullInfo:{
+		basicInfo:"String",
+		apartment_card:"ApartmentCard",
+		notes:"String",
+		rooms_and_tenants:"String",
+		meters_and_charges:"String",
+		notifications:"String",
+		estate_controls:"String",
+		billings:"String",
+		insurance:"String",
+		dokuments:"String",
+		cost_documents:"String"
+	},
+	ApartmentCard:{
+		ogolne:"String",
+		szczegoly:"String",
+		daneDostawcow:"String"
 	}
 }
 

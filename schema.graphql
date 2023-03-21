@@ -16,7 +16,7 @@ type Query{
         login: Credentials!
 	): [ApartmentBasicInfo!]
 	getInfoById(login: Credentials!, estate_id: String!):
-	String
+	ApartmentFullInfo
 }
 
 input Credentials{
@@ -50,7 +50,7 @@ input ApartmentInfo{
 }
 
 type ApartmentBasicInfo{
-   address: String,
+  address: String,
   estate_code: String,
   estate_is_under_renovation: Int,
   estate_manage_type: Int,
@@ -59,7 +59,7 @@ type ApartmentBasicInfo{
   estate_details: Estate_details ,
   estate_rental_type: Int,
   estate_access_code: String,
-  rooms_accommodation: String,
+  rooms_accommodation: [String!],
   free_rooms_count: Int,
   row_class: String
 }
@@ -69,6 +69,31 @@ type Estate_details{
 	pietro: Int,
 	powierzchnia: Float
 	}
+
+
+type ApartmentFullInfo{
+  basicInfo: String
+  apartment_card: ApartmentCard,
+  notes: String,
+  rooms_and_tenants: String,
+  meters_and_charges: String,
+  notifications: String,
+  estate_controls: String,
+  billings: String,
+  insurance: String,
+  dokuments: String,
+  cost_documents: String
+}
+ type ApartmentCard{
+	 ogolne: String
+	 szczegoly: String
+	 daneDostawcow: String
+ }
+
+
+
+
+
 
 enum Rodzaj_ogrzewania{
 	Gaz
@@ -84,4 +109,4 @@ enum Rodzaj_najmu{
 schema{
 	query: Query,
 	mutation: Mutation
-},
+}
