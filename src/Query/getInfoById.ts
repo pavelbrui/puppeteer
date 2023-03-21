@@ -8,7 +8,7 @@ export const handler = async (input: FieldResolveInput) =>
     const page = await browser.newPage();
 
     // Set screen size
-    await page.setViewport({ width: 1080, height: 1080 });
+    await page.setViewport({ width: 1080, height: 1024 });
     await page.goto('https://systemobsluginajmu.pl/login');
 
     // Type into search box

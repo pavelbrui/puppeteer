@@ -27,10 +27,12 @@ export const AllTypesProps: Record<string,any> = {
 	},
 	ApartmentInfo:{
 		rental_type:"Rodzaj_najmu",
+		zarzadzanie:"Zarzadzanie",
 		rodzaj_ogrzewania:"Rodzaj_ogrzewania"
 	},
 	Rodzaj_ogrzewania: "enum" as const,
-	Rodzaj_najmu: "enum" as const
+	Rodzaj_najmu: "enum" as const,
+	Zarzadzanie: "enum" as const
 }
 
 export const ReturnTypes: Record<string,any> = {

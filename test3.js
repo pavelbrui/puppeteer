@@ -55,3 +55,15 @@ import puppeteer from 'puppeteer';
 const dostawcy = await page.waitForSelector('a[href="#estate_card_details"]');
 await dostawcy?.click({ delay: 10 });
 console.log('clik norm');
+
+// await page.type('div[id="estate_rental_type"]>input[value="1"]', '1');
+console.log('input');
+(await page.waitForSelector('div[id="estate_rental_type"]>label'))?.click();
+console.log('div finded');
+await page.evaluate(() => {
+  const elements = [...document.querySelectorAll('label')];
+  const targetElement = elements.find((e) => e.innerText == 'Wynajem');
+  if (targetElement) targetElement.click();
+});
+
+//const change = await page.waitForXPath('//label[contains(text(), "Wynajem")]');

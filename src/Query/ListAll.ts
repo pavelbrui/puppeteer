@@ -1,6 +1,6 @@
 import { FieldResolveInput } from 'stucco-js';
 import { resolverFor } from '../zeus/index.js';
-import puppeteer, { ElementHandle } from 'puppeteer';
+import puppeteer from 'puppeteer';
 
 export const handler = async (input: FieldResolveInput) =>
   resolverFor('Query', 'ListAll', async (args) => {

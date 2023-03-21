@@ -863,6 +863,7 @@ getInfoById?: [{	login: ValueTypes["Credentials"] | Variable<any, string>,	estat
 	intercomCode?: string | undefined | null | Variable<any, string>,
 	apartment_id?: string | undefined | null | Variable<any, string>,
 	rental_type?: ValueTypes["Rodzaj_najmu"] | undefined | null | Variable<any, string>,
+	zarzadzanie?: ValueTypes["Zarzadzanie"] | undefined | null | Variable<any, string>,
 	ifOtherBankAccount?: string | undefined | null | Variable<any, string>,
 	notes?: Array<string> | undefined | null | Variable<any, string>,
 	tags?: Array<string> | undefined | null | Variable<any, string>,
@@ -911,7 +912,8 @@ getInfoById?: [{	login: ValueTypes["Credentials"] | Variable<any, string>,	estat
 		__typename?: boolean | `@${string}`
 }>;
 	["Rodzaj_ogrzewania"]:Rodzaj_ogrzewania;
-	["Rodzaj_najmu"]:Rodzaj_najmu
+	["Rodzaj_najmu"]:Rodzaj_najmu;
+	["Zarzadzanie"]:Zarzadzanie
   }
 
 export type ResolverInputTypes = {
@@ -945,6 +947,7 @@ getInfoById?: [{	login: ResolverInputTypes["Credentials"],	estate_id: string},Re
 	intercomCode?: string | undefined | null,
 	apartment_id?: string | undefined | null,
 	rental_type?: ResolverInputTypes["Rodzaj_najmu"] | undefined | null,
+	zarzadzanie?: ResolverInputTypes["Zarzadzanie"] | undefined | null,
 	ifOtherBankAccount?: string | undefined | null,
 	notes?: Array<string> | undefined | null,
 	tags?: Array<string> | undefined | null,
@@ -993,7 +996,8 @@ getInfoById?: [{	login: ResolverInputTypes["Credentials"],	estate_id: string},Re
 		__typename?: boolean | `@${string}`
 }>;
 	["Rodzaj_ogrzewania"]:Rodzaj_ogrzewania;
-	["Rodzaj_najmu"]:Rodzaj_najmu
+	["Rodzaj_najmu"]:Rodzaj_najmu;
+	["Zarzadzanie"]:Zarzadzanie
   }
 
 export type ModelTypes = {
@@ -1025,6 +1029,7 @@ export type ModelTypes = {
 	intercomCode?: string | undefined,
 	apartment_id?: string | undefined,
 	rental_type?: ModelTypes["Rodzaj_najmu"] | undefined,
+	zarzadzanie?: ModelTypes["Zarzadzanie"] | undefined,
 	ifOtherBankAccount?: string | undefined,
 	notes?: Array<string> | undefined,
 	tags?: Array<string> | undefined,
@@ -1069,7 +1074,8 @@ export type ModelTypes = {
 	daneDostawcow?: string | undefined
 };
 	["Rodzaj_ogrzewania"]:Rodzaj_ogrzewania;
-	["Rodzaj_najmu"]:Rodzaj_najmu
+	["Rodzaj_najmu"]:Rodzaj_najmu;
+	["Zarzadzanie"]:Zarzadzanie
     }
 
 export type GraphQLTypes = {
@@ -1103,6 +1109,7 @@ export type GraphQLTypes = {
 	intercomCode?: string | undefined,
 	apartment_id?: string | undefined,
 	rental_type?: GraphQLTypes["Rodzaj_najmu"] | undefined,
+	zarzadzanie?: GraphQLTypes["Zarzadzanie"] | undefined,
 	ifOtherBankAccount?: string | undefined,
 	notes?: Array<string> | undefined,
 	tags?: Array<string> | undefined,
@@ -1151,7 +1158,8 @@ export type GraphQLTypes = {
 	daneDostawcow?: string | undefined
 };
 	["Rodzaj_ogrzewania"]: Rodzaj_ogrzewania;
-	["Rodzaj_najmu"]: Rodzaj_najmu
+	["Rodzaj_najmu"]: Rodzaj_najmu;
+	["Zarzadzanie"]: Zarzadzanie
     }
 export const enum Rodzaj_ogrzewania {
 	Gaz = "Gaz",
@@ -1163,6 +1171,11 @@ export const enum Rodzaj_najmu {
 	Na_pokoje = "Na_pokoje",
 	Wynajem_calosci = "Wynajem_calosci"
 }
+export const enum Zarzadzanie {
+	Wlasnosc = "Wlasnosc",
+	Zarzadzanie = "Zarzadzanie",
+	Podnajem = "Podnajem"
+}
 
 type ZEUS_VARIABLES = {
 	["Credentials"]: ValueTypes["Credentials"];
@@ -1170,4 +1183,5 @@ type ZEUS_VARIABLES = {
 	["ApartmentInfo"]: ValueTypes["ApartmentInfo"];
 	["Rodzaj_ogrzewania"]: ValueTypes["Rodzaj_ogrzewania"];
 	["Rodzaj_najmu"]: ValueTypes["Rodzaj_najmu"];
+	["Zarzadzanie"]: ValueTypes["Zarzadzanie"];
 }
