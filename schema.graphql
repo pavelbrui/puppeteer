@@ -3,11 +3,11 @@
 type Mutation{
 	addApartment(
 		login: Credentials!
-		input: ApartmentInfo!
+		info: ApartmentInfo!
 	): String
 	firstRegister(
 		login: Credentials!
-		input: CompanyInfo
+		info: CompanyInfo
 	): String
 }
 
@@ -28,27 +28,28 @@ input Credentials{
 
 input CompanyInfo{
 	name: String
-	companyName: String
+	company_name: String
 	address: String
 	city: String
 	zip: String
 	country_id: Int
-	bankAccount: String
+	bank_account: String
 }
 
 input ApartmentInfo{
 	address: String!
 	city: String!
 	zip: String
-	intercomCode: String
+	intercom_code: String
 	apartment_id: String
+	state: Apart_state
 	rental_type: Rodzaj_najmu
-	zarzadzanie: Zarzadzanie
-	ifOtherBankAccount: String
+	menage_type: Zarzadzanie
+	if_other_bank_account: String
 	notes: [String!]
 	tags: [String!]
-	rodzaj_ogrzewania: Rodzaj_ogrzewania
-	internetProvider: String
+	heating_type: Rodzaj_ogrzewania
+	internet_provider: String
 }
 
 type ApartmentBasicInfo{
@@ -58,7 +59,7 @@ type ApartmentBasicInfo{
 	estate_manage_type: Int
 	estate_id: Int
 	tags: String
-	estate_details: Estate_details
+	estate_details: EstateDetails
 	estate_rental_type: Int
 	estate_access_code: String
 	rooms_accommodation: [String!]
@@ -66,14 +67,14 @@ type ApartmentBasicInfo{
 	row_class: String
 }
 
-type Estate_details{
-	liczba_pokoi: Int
-	pietro: Int
-	powierzchnia: Float
+type EstateDetails{
+	number_rooms: Int
+    floor: Int
+    area: Float
 }
 
 type ApartmentFullInfo{
-	basicInfo: String
+	basic_info: BasicInfo
 	apartment_card: ApartmentCard
 	notes: String
 	rooms_and_tenants: String
@@ -86,10 +87,26 @@ type ApartmentFullInfo{
 	cost_documents: String
 }
 
+type BasicInfo {
+	repair_warranty_up_to: String
+	assistance_package: String
+	address_info: String
+	rental_info: String
+	bank_account_for_payment: String
+	estate_is_under_renovation: Apart_state
+	other_owner: String
+
+}
+
+enum Apart_state {
+	Gotowa_do_wynajmu
+	W_remoncie
+}
+
 type ApartmentCard{
-	ogolne: String
-	szczegoly: String
-	daneDostawcow: String
+	general: String
+    details: String
+    supplier_data: String
 }
 
 enum Rodzaj_ogrzewania{

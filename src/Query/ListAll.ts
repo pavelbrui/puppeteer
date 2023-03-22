@@ -28,22 +28,55 @@ export const handler = async (input: FieldResolveInput) =>
     });
 
     const indexJson = await response.text();
+    const parseAll = JSON.parse(indexJson);
 
-    const aparts = JSON.parse(indexJson).data;
+    while (parseInt(parseAll.recordsTotal) > 50 * parseInt(parseAll.draw)) {
+      await page.evaluate(() => {
+        window.scrollBy(0, window.innerHeight);
+      });
+
+      if (parseAll.draw === '1') {
+        const cooki = await page.waitForSelector(
+          'body>div[class="fixed-top bg-info cookie-message pt-1"]>p>a[href="#"]',
+        );
+        console.log('1');
+        await cooki?.click({ delay: 103 });
+      }
+
+      const next = await page.waitForSelector('div[id="dbtable_paginate"]>div>a[class="btn btn-sm default next"]>i');
+      console.log('2');
+
+      await next?.click({ delay: 103 });
+      console.log('3');
+      await next?.click({ delay: 103 });
+      console.log('4');
+
+      const response = await page.waitForResponse((response) => {
+        return response.url().endsWith('index');
+      });
+      const indexJson = await response.text();
+      const parse = JSON.parse(indexJson);
+
+      parseAll.data = parseAll.data.concat(parse.data);
+      parseAll.draw = parse.draw;
+
+      if (parse.data.length < 50) break;
+    }
+    const aparts = parseAll.data;
 
     await browser.close();
 
     const ret = [];
     for (const i in aparts) {
-      const estate_det = (aparts[i].estate_details as string).split('\n');
+      const estate_det = (aparts[i]?.estate_details as string)?.split('\n');
       ret.push({
         ...aparts[i],
         estate_details: {
-          liczba_pokoi: parseInt(estate_det[0].split(':')[1]),
-          pietro: parseInt(estate_det[1].split(':')[1]),
-          powierzchnia: parseFloat(estate_det[2].split(':')[1]),
+          number_rooms: parseInt(estate_det[0]?.split(':')[1]),
+          floor: parseInt(estate_det[1]?.split(':')[1]),
+          area: parseFloat(estate_det[2]?.split(':')[1]),
         },
-        ...(aparts[i].rooms_accommodation && { rooms_accommodation: aparts[i].rooms_accommodation.split('[|]') }),
+        ...(aparts[i]?.rooms_accommodation && { rooms_accommodation: aparts[i].rooms_accommodation.split('[|]') }),
       });
     }
 

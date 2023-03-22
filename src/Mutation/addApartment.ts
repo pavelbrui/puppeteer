@@ -29,10 +29,10 @@ export const handler = async (input: FieldResolveInput) =>
     } catch {
       return 'Error';
     }
-    await page.type('input[name="estate_address"]', args.input.address);
-    await page.type('input[name="estate_city"]', args.input.city);
-    await page.type('input[name="estate_zip"]', args.input.zip || '');
-    if (args.input.rental_type === Rodzaj_najmu.Wynajem_calosci) {
+    await page.type('input[name="estate_address"]', args.info.address);
+    await page.type('input[name="estate_city"]', args.info.city);
+    await page.type('input[name="estate_zip"]', args.info.zip || '');
+    if (args.info.rental_type === Rodzaj_najmu.Wynajem_calosci) {
       try {
         const change = await page.waitForSelector('div[id="estate_rental_type"]>label>input[value="1"]');
         await change?.click({ delay: 100 });
@@ -41,8 +41,9 @@ export const handler = async (input: FieldResolveInput) =>
         console.log('Button Wynajem_calosci not find');
       }
     }
-    if (args.input.zarzadzanie) {
-      const value = args.input.zarzadzanie === Zarzadzanie.Zarzadzanie ? 2 : Zarzadzanie.Podnajem ? 3 : 1;
+    if (args.info.menage_type) {
+      const value =
+        args.info.menage_type === Zarzadzanie.Zarzadzanie ? 2 : args.info.menage_type === Zarzadzanie.Podnajem ? 3 : 1;
 
       try {
         const change = await page.waitForSelector(`div[id="estate_manage_type"]>label>input[value="${value}"]`);
@@ -58,10 +59,10 @@ export const handler = async (input: FieldResolveInput) =>
         console.log('Button Zarzadzanie not find');
       }
     }
-    await page.type('input[name="estate_access_code"]', args.input.intercomCode || '');
-    await page.type('input[name="estate_code"]', args.input.apartment_id || '');
-    if (args.input.ifOtherBankAccount) {
-      await page.type('input[name="estate_account"]', args.input.ifOtherBankAccount);
+    await page.type('input[name="estate_access_code"]', args.info.intercom_code || '');
+    await page.type('input[name="estate_code"]', args.info.apartment_id || '');
+    if (args.info.if_other_bank_account) {
+      await page.type('input[name="estate_account"]', args.info.if_other_bank_account);
     }
     const submit = await page.waitForSelector('div[class="col-md-12 text-right"]>button[class="btn green"]');
     await submit?.click({ delay: 1300 });
@@ -71,10 +72,10 @@ export const handler = async (input: FieldResolveInput) =>
     } catch {
       return 'Field for tags not find';
     }
-    await page.type('input[placeholder="Dodaj tag"]', args.input.tags ? args.input.tags?.toString() + ',' : '');
+    await page.type('input[placeholder="Dodaj tag"]', args.info.tags ? args.info.tags?.toString() + ',' : '');
     console.log('Tags added');
 
-    const notes = args.input.notes;
+    const notes = args.info.notes;
     if (notes) {
       for (const i in notes) {
         try {
@@ -89,7 +90,7 @@ export const handler = async (input: FieldResolveInput) =>
     }
     console.log('Notes added');
 
-    if (args.input.rodzaj_ogrzewania) {
+    if (args.info.heating_type) {
       const ogrzew = await page.waitForSelector(
         'td[class="col-xs-8"]>a[class="editable editable-click editable-empty"]',
       );
@@ -97,15 +98,14 @@ export const handler = async (input: FieldResolveInput) =>
       try {
         const ogrzewSelect = await page.waitForSelector('span[class="select2-selection select2-selection--single"]');
         await ogrzewSelect?.click({ delay: 100 });
-
         const heating =
-          args.input.rodzaj_ogrzewania === Rodzaj_ogrzewania.Gaz
-            ? 4
-            : Rodzaj_ogrzewania.Prand
+          args.info.heating_type === Rodzaj_ogrzewania.Wlasna_kotlowina
+            ? 1
+            : args.info.heating_type === Rodzaj_ogrzewania.Prand
             ? 2
-            : Rodzaj_ogrzewania.Miejskie
+            : args.info.heating_type === Rodzaj_ogrzewania.Miejskie
             ? 3
-            : 1;
+            : 4;
 
         const heatingSelect = await page.waitForSelector(
           `span>span[class="select2-dropdown select2-dropdown--below"]>span[class="select2-results"]>ul>li:nth-last-child(${heating})`,
@@ -121,12 +121,12 @@ export const handler = async (input: FieldResolveInput) =>
     }
     console.log('rodzaj_ogrzewania added');
 
-    if (args.input.internetProvider) {
+    if (args.info.internet_provider) {
       const internet = await page.waitForSelector(
         'td[class="col-xs-8"]>a[class="editable editable-click editable-empty"]',
       );
       await internet?.click({ delay: 30 });
-      await page.type('input[class="form-control"]', args.input.internetProvider);
+      await page.type('input[class="form-control"]', args.info.internet_provider);
       const ok = await page.waitForSelector('div[class="form-group"]>div>div>button[class="btn blue editable-submit"]');
       await ok?.click({ delay: 30 });
     }
@@ -135,5 +135,5 @@ export const handler = async (input: FieldResolveInput) =>
 
     console.log('super');
 
-    return ' super';
+    return 'Success!!!';
   })(input.arguments);

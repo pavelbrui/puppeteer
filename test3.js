@@ -28,10 +28,10 @@ import puppeteer from 'puppeteer';
   } catch {
     return 'Error';
   }
-  await page.type('input[name="estate_address"]', args.input.address);
+  await page.type('input[name="estate_address"]', args.info.address);
   await page.type('input[name="estate_city"]', 'CompanyName');
   await page.type('input[name="estate_zip"]', 'Address');
-  if (args.input) {
+  if (args.info) {
     const change = await page.waitForSelector('div >.btn.btn-transparent--custom');
     await change?.click({ delay: 100 });
   }

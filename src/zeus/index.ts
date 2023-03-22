@@ -834,8 +834,8 @@ type ZEUS_UNIONS = never
 
 export type ValueTypes = {
     ["Mutation"]: AliasType<{
-addApartment?: [{	login: ValueTypes["Credentials"] | Variable<any, string>,	input: ValueTypes["ApartmentInfo"] | Variable<any, string>},boolean | `@${string}`],
-firstRegister?: [{	login: ValueTypes["Credentials"] | Variable<any, string>,	input?: ValueTypes["CompanyInfo"] | undefined | null | Variable<any, string>},boolean | `@${string}`],
+addApartment?: [{	login: ValueTypes["Credentials"] | Variable<any, string>,	info: ValueTypes["ApartmentInfo"] | Variable<any, string>},boolean | `@${string}`],
+firstRegister?: [{	login: ValueTypes["Credentials"] | Variable<any, string>,	info?: ValueTypes["CompanyInfo"] | undefined | null | Variable<any, string>},boolean | `@${string}`],
 		__typename?: boolean | `@${string}`
 }>;
 	["Query"]: AliasType<{
@@ -849,26 +849,27 @@ getInfoById?: [{	login: ValueTypes["Credentials"] | Variable<any, string>,	estat
 };
 	["CompanyInfo"]: {
 	name?: string | undefined | null | Variable<any, string>,
-	companyName?: string | undefined | null | Variable<any, string>,
+	company_name?: string | undefined | null | Variable<any, string>,
 	address?: string | undefined | null | Variable<any, string>,
 	city?: string | undefined | null | Variable<any, string>,
 	zip?: string | undefined | null | Variable<any, string>,
 	country_id?: number | undefined | null | Variable<any, string>,
-	bankAccount?: string | undefined | null | Variable<any, string>
+	bank_account?: string | undefined | null | Variable<any, string>
 };
 	["ApartmentInfo"]: {
 	address: string | Variable<any, string>,
 	city: string | Variable<any, string>,
 	zip?: string | undefined | null | Variable<any, string>,
-	intercomCode?: string | undefined | null | Variable<any, string>,
+	intercom_code?: string | undefined | null | Variable<any, string>,
 	apartment_id?: string | undefined | null | Variable<any, string>,
+	state?: ValueTypes["Apart_state"] | undefined | null | Variable<any, string>,
 	rental_type?: ValueTypes["Rodzaj_najmu"] | undefined | null | Variable<any, string>,
-	zarzadzanie?: ValueTypes["Zarzadzanie"] | undefined | null | Variable<any, string>,
-	ifOtherBankAccount?: string | undefined | null | Variable<any, string>,
+	menage_type?: ValueTypes["Zarzadzanie"] | undefined | null | Variable<any, string>,
+	if_other_bank_account?: string | undefined | null | Variable<any, string>,
 	notes?: Array<string> | undefined | null | Variable<any, string>,
 	tags?: Array<string> | undefined | null | Variable<any, string>,
-	rodzaj_ogrzewania?: ValueTypes["Rodzaj_ogrzewania"] | undefined | null | Variable<any, string>,
-	internetProvider?: string | undefined | null | Variable<any, string>
+	heating_type?: ValueTypes["Rodzaj_ogrzewania"] | undefined | null | Variable<any, string>,
+	internet_provider?: string | undefined | null | Variable<any, string>
 };
 	["ApartmentBasicInfo"]: AliasType<{
 	address?:boolean | `@${string}`,
@@ -877,7 +878,7 @@ getInfoById?: [{	login: ValueTypes["Credentials"] | Variable<any, string>,	estat
 	estate_manage_type?:boolean | `@${string}`,
 	estate_id?:boolean | `@${string}`,
 	tags?:boolean | `@${string}`,
-	estate_details?:ValueTypes["Estate_details"],
+	estate_details?:ValueTypes["EstateDetails"],
 	estate_rental_type?:boolean | `@${string}`,
 	estate_access_code?:boolean | `@${string}`,
 	rooms_accommodation?:boolean | `@${string}`,
@@ -885,14 +886,14 @@ getInfoById?: [{	login: ValueTypes["Credentials"] | Variable<any, string>,	estat
 	row_class?:boolean | `@${string}`,
 		__typename?: boolean | `@${string}`
 }>;
-	["Estate_details"]: AliasType<{
-	liczba_pokoi?:boolean | `@${string}`,
-	pietro?:boolean | `@${string}`,
-	powierzchnia?:boolean | `@${string}`,
+	["EstateDetails"]: AliasType<{
+	number_rooms?:boolean | `@${string}`,
+	floor?:boolean | `@${string}`,
+	area?:boolean | `@${string}`,
 		__typename?: boolean | `@${string}`
 }>;
 	["ApartmentFullInfo"]: AliasType<{
-	basicInfo?:boolean | `@${string}`,
+	basic_info?:ValueTypes["BasicInfo"],
 	apartment_card?:ValueTypes["ApartmentCard"],
 	notes?:boolean | `@${string}`,
 	rooms_and_tenants?:boolean | `@${string}`,
@@ -905,10 +906,21 @@ getInfoById?: [{	login: ValueTypes["Credentials"] | Variable<any, string>,	estat
 	cost_documents?:boolean | `@${string}`,
 		__typename?: boolean | `@${string}`
 }>;
+	["BasicInfo"]: AliasType<{
+	repair_warranty_up_to?:boolean | `@${string}`,
+	assistance_package?:boolean | `@${string}`,
+	address_info?:boolean | `@${string}`,
+	rental_info?:boolean | `@${string}`,
+	bank_account_for_payment?:boolean | `@${string}`,
+	estate_is_under_renovation?:boolean | `@${string}`,
+	other_owner?:boolean | `@${string}`,
+		__typename?: boolean | `@${string}`
+}>;
+	["Apart_state"]:Apart_state;
 	["ApartmentCard"]: AliasType<{
-	ogolne?:boolean | `@${string}`,
-	szczegoly?:boolean | `@${string}`,
-	daneDostawcow?:boolean | `@${string}`,
+	general?:boolean | `@${string}`,
+	details?:boolean | `@${string}`,
+	supplier_data?:boolean | `@${string}`,
 		__typename?: boolean | `@${string}`
 }>;
 	["Rodzaj_ogrzewania"]:Rodzaj_ogrzewania;
@@ -918,8 +930,8 @@ getInfoById?: [{	login: ValueTypes["Credentials"] | Variable<any, string>,	estat
 
 export type ResolverInputTypes = {
     ["Mutation"]: AliasType<{
-addApartment?: [{	login: ResolverInputTypes["Credentials"],	input: ResolverInputTypes["ApartmentInfo"]},boolean | `@${string}`],
-firstRegister?: [{	login: ResolverInputTypes["Credentials"],	input?: ResolverInputTypes["CompanyInfo"] | undefined | null},boolean | `@${string}`],
+addApartment?: [{	login: ResolverInputTypes["Credentials"],	info: ResolverInputTypes["ApartmentInfo"]},boolean | `@${string}`],
+firstRegister?: [{	login: ResolverInputTypes["Credentials"],	info?: ResolverInputTypes["CompanyInfo"] | undefined | null},boolean | `@${string}`],
 		__typename?: boolean | `@${string}`
 }>;
 	["Query"]: AliasType<{
@@ -933,26 +945,27 @@ getInfoById?: [{	login: ResolverInputTypes["Credentials"],	estate_id: string},Re
 };
 	["CompanyInfo"]: {
 	name?: string | undefined | null,
-	companyName?: string | undefined | null,
+	company_name?: string | undefined | null,
 	address?: string | undefined | null,
 	city?: string | undefined | null,
 	zip?: string | undefined | null,
 	country_id?: number | undefined | null,
-	bankAccount?: string | undefined | null
+	bank_account?: string | undefined | null
 };
 	["ApartmentInfo"]: {
 	address: string,
 	city: string,
 	zip?: string | undefined | null,
-	intercomCode?: string | undefined | null,
+	intercom_code?: string | undefined | null,
 	apartment_id?: string | undefined | null,
+	state?: ResolverInputTypes["Apart_state"] | undefined | null,
 	rental_type?: ResolverInputTypes["Rodzaj_najmu"] | undefined | null,
-	zarzadzanie?: ResolverInputTypes["Zarzadzanie"] | undefined | null,
-	ifOtherBankAccount?: string | undefined | null,
+	menage_type?: ResolverInputTypes["Zarzadzanie"] | undefined | null,
+	if_other_bank_account?: string | undefined | null,
 	notes?: Array<string> | undefined | null,
 	tags?: Array<string> | undefined | null,
-	rodzaj_ogrzewania?: ResolverInputTypes["Rodzaj_ogrzewania"] | undefined | null,
-	internetProvider?: string | undefined | null
+	heating_type?: ResolverInputTypes["Rodzaj_ogrzewania"] | undefined | null,
+	internet_provider?: string | undefined | null
 };
 	["ApartmentBasicInfo"]: AliasType<{
 	address?:boolean | `@${string}`,
@@ -961,7 +974,7 @@ getInfoById?: [{	login: ResolverInputTypes["Credentials"],	estate_id: string},Re
 	estate_manage_type?:boolean | `@${string}`,
 	estate_id?:boolean | `@${string}`,
 	tags?:boolean | `@${string}`,
-	estate_details?:ResolverInputTypes["Estate_details"],
+	estate_details?:ResolverInputTypes["EstateDetails"],
 	estate_rental_type?:boolean | `@${string}`,
 	estate_access_code?:boolean | `@${string}`,
 	rooms_accommodation?:boolean | `@${string}`,
@@ -969,14 +982,14 @@ getInfoById?: [{	login: ResolverInputTypes["Credentials"],	estate_id: string},Re
 	row_class?:boolean | `@${string}`,
 		__typename?: boolean | `@${string}`
 }>;
-	["Estate_details"]: AliasType<{
-	liczba_pokoi?:boolean | `@${string}`,
-	pietro?:boolean | `@${string}`,
-	powierzchnia?:boolean | `@${string}`,
+	["EstateDetails"]: AliasType<{
+	number_rooms?:boolean | `@${string}`,
+	floor?:boolean | `@${string}`,
+	area?:boolean | `@${string}`,
 		__typename?: boolean | `@${string}`
 }>;
 	["ApartmentFullInfo"]: AliasType<{
-	basicInfo?:boolean | `@${string}`,
+	basic_info?:ResolverInputTypes["BasicInfo"],
 	apartment_card?:ResolverInputTypes["ApartmentCard"],
 	notes?:boolean | `@${string}`,
 	rooms_and_tenants?:boolean | `@${string}`,
@@ -989,10 +1002,21 @@ getInfoById?: [{	login: ResolverInputTypes["Credentials"],	estate_id: string},Re
 	cost_documents?:boolean | `@${string}`,
 		__typename?: boolean | `@${string}`
 }>;
+	["BasicInfo"]: AliasType<{
+	repair_warranty_up_to?:boolean | `@${string}`,
+	assistance_package?:boolean | `@${string}`,
+	address_info?:boolean | `@${string}`,
+	rental_info?:boolean | `@${string}`,
+	bank_account_for_payment?:boolean | `@${string}`,
+	estate_is_under_renovation?:boolean | `@${string}`,
+	other_owner?:boolean | `@${string}`,
+		__typename?: boolean | `@${string}`
+}>;
+	["Apart_state"]:Apart_state;
 	["ApartmentCard"]: AliasType<{
-	ogolne?:boolean | `@${string}`,
-	szczegoly?:boolean | `@${string}`,
-	daneDostawcow?:boolean | `@${string}`,
+	general?:boolean | `@${string}`,
+	details?:boolean | `@${string}`,
+	supplier_data?:boolean | `@${string}`,
 		__typename?: boolean | `@${string}`
 }>;
 	["Rodzaj_ogrzewania"]:Rodzaj_ogrzewania;
@@ -1015,26 +1039,27 @@ export type ModelTypes = {
 };
 	["CompanyInfo"]: {
 	name?: string | undefined,
-	companyName?: string | undefined,
+	company_name?: string | undefined,
 	address?: string | undefined,
 	city?: string | undefined,
 	zip?: string | undefined,
 	country_id?: number | undefined,
-	bankAccount?: string | undefined
+	bank_account?: string | undefined
 };
 	["ApartmentInfo"]: {
 	address: string,
 	city: string,
 	zip?: string | undefined,
-	intercomCode?: string | undefined,
+	intercom_code?: string | undefined,
 	apartment_id?: string | undefined,
+	state?: ModelTypes["Apart_state"] | undefined,
 	rental_type?: ModelTypes["Rodzaj_najmu"] | undefined,
-	zarzadzanie?: ModelTypes["Zarzadzanie"] | undefined,
-	ifOtherBankAccount?: string | undefined,
+	menage_type?: ModelTypes["Zarzadzanie"] | undefined,
+	if_other_bank_account?: string | undefined,
 	notes?: Array<string> | undefined,
 	tags?: Array<string> | undefined,
-	rodzaj_ogrzewania?: ModelTypes["Rodzaj_ogrzewania"] | undefined,
-	internetProvider?: string | undefined
+	heating_type?: ModelTypes["Rodzaj_ogrzewania"] | undefined,
+	internet_provider?: string | undefined
 };
 	["ApartmentBasicInfo"]: {
 		address?: string | undefined,
@@ -1043,20 +1068,20 @@ export type ModelTypes = {
 	estate_manage_type?: number | undefined,
 	estate_id?: number | undefined,
 	tags?: string | undefined,
-	estate_details?: ModelTypes["Estate_details"] | undefined,
+	estate_details?: ModelTypes["EstateDetails"] | undefined,
 	estate_rental_type?: number | undefined,
 	estate_access_code?: string | undefined,
 	rooms_accommodation?: Array<string> | undefined,
 	free_rooms_count?: number | undefined,
 	row_class?: string | undefined
 };
-	["Estate_details"]: {
-		liczba_pokoi?: number | undefined,
-	pietro?: number | undefined,
-	powierzchnia?: number | undefined
+	["EstateDetails"]: {
+		number_rooms?: number | undefined,
+	floor?: number | undefined,
+	area?: number | undefined
 };
 	["ApartmentFullInfo"]: {
-		basicInfo?: string | undefined,
+		basic_info?: ModelTypes["BasicInfo"] | undefined,
 	apartment_card?: ModelTypes["ApartmentCard"] | undefined,
 	notes?: string | undefined,
 	rooms_and_tenants?: string | undefined,
@@ -1068,10 +1093,20 @@ export type ModelTypes = {
 	dokuments?: string | undefined,
 	cost_documents?: string | undefined
 };
+	["BasicInfo"]: {
+		repair_warranty_up_to?: string | undefined,
+	assistance_package?: string | undefined,
+	address_info?: string | undefined,
+	rental_info?: string | undefined,
+	bank_account_for_payment?: string | undefined,
+	estate_is_under_renovation?: ModelTypes["Apart_state"] | undefined,
+	other_owner?: string | undefined
+};
+	["Apart_state"]:Apart_state;
 	["ApartmentCard"]: {
-		ogolne?: string | undefined,
-	szczegoly?: string | undefined,
-	daneDostawcow?: string | undefined
+		general?: string | undefined,
+	details?: string | undefined,
+	supplier_data?: string | undefined
 };
 	["Rodzaj_ogrzewania"]:Rodzaj_ogrzewania;
 	["Rodzaj_najmu"]:Rodzaj_najmu;
@@ -1095,26 +1130,27 @@ export type GraphQLTypes = {
 };
 	["CompanyInfo"]: {
 		name?: string | undefined,
-	companyName?: string | undefined,
+	company_name?: string | undefined,
 	address?: string | undefined,
 	city?: string | undefined,
 	zip?: string | undefined,
 	country_id?: number | undefined,
-	bankAccount?: string | undefined
+	bank_account?: string | undefined
 };
 	["ApartmentInfo"]: {
 		address: string,
 	city: string,
 	zip?: string | undefined,
-	intercomCode?: string | undefined,
+	intercom_code?: string | undefined,
 	apartment_id?: string | undefined,
+	state?: GraphQLTypes["Apart_state"] | undefined,
 	rental_type?: GraphQLTypes["Rodzaj_najmu"] | undefined,
-	zarzadzanie?: GraphQLTypes["Zarzadzanie"] | undefined,
-	ifOtherBankAccount?: string | undefined,
+	menage_type?: GraphQLTypes["Zarzadzanie"] | undefined,
+	if_other_bank_account?: string | undefined,
 	notes?: Array<string> | undefined,
 	tags?: Array<string> | undefined,
-	rodzaj_ogrzewania?: GraphQLTypes["Rodzaj_ogrzewania"] | undefined,
-	internetProvider?: string | undefined
+	heating_type?: GraphQLTypes["Rodzaj_ogrzewania"] | undefined,
+	internet_provider?: string | undefined
 };
 	["ApartmentBasicInfo"]: {
 	__typename: "ApartmentBasicInfo",
@@ -1124,22 +1160,22 @@ export type GraphQLTypes = {
 	estate_manage_type?: number | undefined,
 	estate_id?: number | undefined,
 	tags?: string | undefined,
-	estate_details?: GraphQLTypes["Estate_details"] | undefined,
+	estate_details?: GraphQLTypes["EstateDetails"] | undefined,
 	estate_rental_type?: number | undefined,
 	estate_access_code?: string | undefined,
 	rooms_accommodation?: Array<string> | undefined,
 	free_rooms_count?: number | undefined,
 	row_class?: string | undefined
 };
-	["Estate_details"]: {
-	__typename: "Estate_details",
-	liczba_pokoi?: number | undefined,
-	pietro?: number | undefined,
-	powierzchnia?: number | undefined
+	["EstateDetails"]: {
+	__typename: "EstateDetails",
+	number_rooms?: number | undefined,
+	floor?: number | undefined,
+	area?: number | undefined
 };
 	["ApartmentFullInfo"]: {
 	__typename: "ApartmentFullInfo",
-	basicInfo?: string | undefined,
+	basic_info?: GraphQLTypes["BasicInfo"] | undefined,
 	apartment_card?: GraphQLTypes["ApartmentCard"] | undefined,
 	notes?: string | undefined,
 	rooms_and_tenants?: string | undefined,
@@ -1151,16 +1187,31 @@ export type GraphQLTypes = {
 	dokuments?: string | undefined,
 	cost_documents?: string | undefined
 };
+	["BasicInfo"]: {
+	__typename: "BasicInfo",
+	repair_warranty_up_to?: string | undefined,
+	assistance_package?: string | undefined,
+	address_info?: string | undefined,
+	rental_info?: string | undefined,
+	bank_account_for_payment?: string | undefined,
+	estate_is_under_renovation?: GraphQLTypes["Apart_state"] | undefined,
+	other_owner?: string | undefined
+};
+	["Apart_state"]: Apart_state;
 	["ApartmentCard"]: {
 	__typename: "ApartmentCard",
-	ogolne?: string | undefined,
-	szczegoly?: string | undefined,
-	daneDostawcow?: string | undefined
+	general?: string | undefined,
+	details?: string | undefined,
+	supplier_data?: string | undefined
 };
 	["Rodzaj_ogrzewania"]: Rodzaj_ogrzewania;
 	["Rodzaj_najmu"]: Rodzaj_najmu;
 	["Zarzadzanie"]: Zarzadzanie
     }
+export const enum Apart_state {
+	Gotowa_do_wynajmu = "Gotowa_do_wynajmu",
+	W_remoncie = "W_remoncie"
+}
 export const enum Rodzaj_ogrzewania {
 	Gaz = "Gaz",
 	Miejskie = "Miejskie",
@@ -1181,6 +1232,7 @@ type ZEUS_VARIABLES = {
 	["Credentials"]: ValueTypes["Credentials"];
 	["CompanyInfo"]: ValueTypes["CompanyInfo"];
 	["ApartmentInfo"]: ValueTypes["ApartmentInfo"];
+	["Apart_state"]: ValueTypes["Apart_state"];
 	["Rodzaj_ogrzewania"]: ValueTypes["Rodzaj_ogrzewania"];
 	["Rodzaj_najmu"]: ValueTypes["Rodzaj_najmu"];
 	["Zarzadzanie"]: ValueTypes["Zarzadzanie"];
